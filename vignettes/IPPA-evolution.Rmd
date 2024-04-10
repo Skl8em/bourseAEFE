@@ -1,0 +1,32 @@
+---
+title: "Analyse de l'Évolution d'un IPPA"
+author: "Benjamin Nakajima-Claverie"
+date: "Avril 2024"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Analyse de l'Évolution d'un IPPA}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(bourseAEFE)
+```
+# Évolution des bourses AEFE en fonction ds salaires et d'une variation de l'IPPA
+
+## Introduction
+Cette vignette montre comment utiliser le paquet bourseAEFE pour estimer les effets d'une réforme des IPPAs.
+Pour faciliter l'analyse, nous partons d'un taux de change constant, de `r (tx <- 1)`
+
+
+## Génerer les quotients de bourses
+
+## Illustrer les changements par des graphiques 
+
