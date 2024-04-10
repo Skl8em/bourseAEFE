@@ -8,9 +8,9 @@
 #' @param part part de la famille: 0.5 par enfants, 2 pour deux parents, 1.5 pour 1 parents seul (ex. 3 pour 2 parents et 2 enfants)
 #' @param ippa taux IPPA (index de parité de pouvoir d'achat) fixé par l'AEFE pour l'école(ex. 78)
 #' @param tx taux d'echange de la denomination locale en EUR, par Ex
-#' @param t_cps CPS fixé par l'AEFE pour réduire les bourses à la hauteur du budget alloué
+#' @param t_cps taux CPS fixé par l'AEFE pour réduire les bourses à la hauteur du budget alloué
 #'
-#' @return le quotient qui détermine la hauteur de bourse accordé: (ex. 0.3, donc 30% des frais seront pris en charge par la bourse)
+#' @return la quotité qui détermine la hauteur de bourse accordée: (ex. 0.3, donc 30% des frais seront pris en charge par la bourse)
 #' @export
 #'
 #' @examples
@@ -35,7 +35,7 @@ quotient_final <- function(salaire, scolarite, part, ippa, tx, t_cps) {
 #'  quotient_theorique(7000000, 1100000, 2.5, 73, 0.0063)
 
 quotient_theorique <- function(salaire, scolarite, part, ippa, tx) {
-  quotient(quotient_pondere(salaire, scolarite, part, ippa, tx), 3000, 23000)
+  quotite(quotient_pondere(salaire, scolarite, part, ippa, tx))
 }
 
 #' calcul du quotient final après application de la cps
@@ -49,10 +49,18 @@ cps <- function(q, t) {
   bound(q - t * bound(quotient(q, 0.8, 1)))
 }
 
+quotite <- function(q){
+  quotient(q, 3000, 23000)
+}
+
+ponderation <- function(r, i, tx){
+  r * (100/i) * tx
+}
+
 quotient_f <- function(salaire, scolarite, part) {
   pmax(0, (salaire - scolarite) / part)
 }
 
-quotient_pondere <- function(salaire, scolarite, part, ippa, tx) {
-  quotient_f(salaire, scolarite, part) * (100 / ippa) * tx
+quotient_pondere <- function(salaire, scolarite, part, i, tx) {
+  ponderation(quotient_f(salaire, scolarite, part), i, tx)
 }
