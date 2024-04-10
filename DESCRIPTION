@@ -1,14 +1,17 @@
 Package: bourseAEFE
-Title: What the Package Does (One Line, Title Case)
+Title: fonction facilitant le débat autour des bourses de l'AEFE
 Version: 0.0.0.9000
 Authors@R: 
-    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"),
+    person("Benjamin", "Nakajima-Claverie", , "152368+Skl8em@users.noreply.github.com", role = c("aut", "cre"),
            comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
+Description: Propose des fonctions qui facilite la verification et le débat autour du calcul des bourse de l'AEFE. Ces fonctions n'existent qu'à titre indicatif! 
 License: GPL (>= 3)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.1
 Suggests: 
+    knitr,
+    rmarkdown,
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
+VignetteBuilder: knitr
