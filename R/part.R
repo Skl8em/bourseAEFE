@@ -12,8 +12,8 @@
 #' @examples
 #' part(2, 3)
 part <- function(p,e){
-  dplyr::case_when(
-    p == 1 ~ 1.5,
-    p == 2 ~ 2
+  dplyr::case_match( p,
+    1 ~ 1.5,
+    2 ~ 2
   ) + 0.5 * e
 }

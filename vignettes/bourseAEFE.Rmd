@@ -1,0 +1,110 @@
+---
+title: "bourseAEFE"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{bourseAEFE}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(bourseAEFE)
+```
+# Évolution des bourses AEFE en fonction ds salaires et d'une variation de l'IPPA
+
+## Introduction
+Cette vignette montre comment utiliser le paquet bourseAEFE pour estimer les effets de réformes sur les bourse en deux exemples, changement d'IPPA et changement de frais de scolarité.
+Pour faciliter l'analyse, nous partons d'un taux de change constant, de $1$, d'un index IPPA de $100$, de frais de scolarité annuel de $5000$ dans la denomination locale (donc en EUR aussi, le taux de change étant de $1$). Nous analysons des famille mono- et bi-parentale de $1$ à $4$ enfants.
+
+```{r}
+tx <- 1 # taux de change
+ippa <- 100
+t_cps <- 0.05
+p <- part(2, 3) # part obtenu pour famille biparentale et 1 a 4 enfants
+sco <- 5000 # frais annuel de scolarité
+```
+
+les taux finaux se calcul simplement suivant cette formule:
+```{r}
+quotient_final(36000, sco, p, ippa, tx, t_cps)
+```
+
+Voir a quelle hausse de salaires une baisse du quotient theorique correspondrait se calcule de cette sorte:
+```{r}
+salaire <- 36000
+(qt <- quotient_theorique(salaire, sco, p, ippa, tx))
+
+(revenu_net_imp(cps(0.4, t_cps), sco, p, ippa, tx, t_cps) - salaire)
+
+```
+
+## Representer les effets d'une variation de l'IPPA
+
+Pour répresenter les effets pour beaucoup de famille, il est utile de construire un echelon de salaire representant le spectre possible:
+```{r}
+rev_max <- 1.5 * max(revenu_net_imp(0, sco, p, ippa, tx, t_cps))
+rev_min <- min(revenu_net_imp(1, sco, p, ippa, tx, t_cps))
+
+s <- seq(rev_min, rev_max, length.out = 100)
+```
+
+nous pouvons des lors joindre toutes les données pour construire les graphiques:
+```{r}
+
+p <- part(1:2,1:4) # part obtenu pour famille biparentale et 1 a 4 enfants
+
+tibble::tibble(
+  scenario = c("avant", "apres"),
+  ippa = c(100, 80)
+) %>%
+tidyr::expand_grid(
+  parent = 2,#factor(1:2, labels = c("monoparentale", "biparentale")),
+  enfants = 1:4,
+  salaire = s,
+  cps = t_cps
+) %>%
+  dplyr::mutate(
+    scolarite =  sco * enfants,
+    part = part(parent, enfants),
+    quotient = quotient_final(salaire, scolarite, part, ippa, tx, cps),
+    q_edu_salaire = (1 - quotient) * scolarite / salaire
+  ) %>%
+  ggplot2::ggplot(ggplot2::aes(x = salaire, y = q_edu_salaire)) +
+  ggplot2::geom_line(ggplot2::aes(color = scenario)) +
+  ggplot2::facet_grid(~enfants)
+
+```
+## Representer les effets d'une hausse des frais de scolarité
+
+
+de la meme maniere, une hausse de $10%$ des frais de scolarité se laisse facilement representé:
+```{r}
+tibble::tibble(
+  scenario = c("avant", "apres"),
+  frais = c(sco, sco*1.1)
+) %>%
+  tidyr::expand_grid(
+    parent = 2,#factor(1:2, labels = c("monoparentale", "biparentale")),
+    enfants = 1:4,
+    salaire = s,
+    ippa = 100,
+    cps = cps
+  ) %>%
+  dplyr::mutate(
+    scolarite = frais * enfants,
+    part = part(parent, enfants),
+    quotient = quotient_final(salaire, scolarite, part, ippa, tx, cps),
+    q_edu_salaire = (1 - quotient) * scolarite / salaire
+  ) %>%
+  ggplot2::ggplot(ggplot2::aes(x=salaire, y=q_edu_salaire)) +
+  ggplot2::geom_line(ggplot2::aes(color=scenario)) +
+  ggplot2::facet_grid(~enfants)
+
+```
