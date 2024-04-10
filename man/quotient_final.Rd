@@ -17,10 +17,10 @@ quotient_final(salaire, scolarite, part, ippa, tx, t_cps)
 
 \item{tx}{taux d'echange de la denomination locale en EUR, par Ex}
 
-\item{t_cps}{CPS fixé par l'AEFE pour réduire les bourses à la hauteur du budget alloué}
+\item{t_cps}{taux CPS fixé par l'AEFE pour réduire les bourses à la hauteur du budget alloué}
 }
 \value{
-le quotient qui détermine la hauteur de bourse accordé: (ex. 0.3, donc 30\% des frais seront pris en charge par la bourse)
+la quotité qui détermine la hauteur de bourse accordée: (ex. 0.3, donc 30\% des frais seront pris en charge par la bourse)
 }
 \description{
 Calcul du quotient final des bourse AEFE en consideration de
