@@ -14,10 +14,18 @@ knitr::opts_chunk$set(
 )
 ```
 
+# Évolution des bourses AEFE en fonction ds salaires et d'une variation de l'IPPA
+vérifiez que le paquet bourseAEFE soit installé, par exemple en utilisant:
+```{r, eval = FALSE}
+devtools::install_github("https://github.com/Skl8em/bourseAEFE")
+```
+
+
 ```{r setup}
 library(bourseAEFE)
+library(dplyr)
 ```
-# Évolution des bourses AEFE en fonction ds salaires et d'une variation de l'IPPA
+
 
 ## Introduction
 Cette vignette montre comment utiliser le paquet bourseAEFE pour estimer les effets de réformes sur les bourse en deux exemples, changement d'IPPA et changement de frais de scolarité.
@@ -68,12 +76,12 @@ tidyr::expand_grid(
   parent = 2,#factor(1:2, labels = c("monoparentale", "biparentale")),
   enfants = 1:4,
   salaire = s,
-  cps = t_cps
+  t_cps = t_cps
 ) %>%
   dplyr::mutate(
     scolarite =  sco * enfants,
     part = part(parent, enfants),
-    quotient = quotient_final(salaire, scolarite, part, ippa, tx, cps),
+    quotient = quotient_final(salaire, scolarite, part, ippa, tx, t_cps),
     q_edu_salaire = (1 - quotient) * scolarite / salaire
   ) %>%
   ggplot2::ggplot(ggplot2::aes(x = salaire, y = q_edu_salaire)) +
@@ -88,23 +96,23 @@ de la meme maniere, une hausse de $10%$ des frais de scolarité se laisse facile
 ```{r}
 tibble::tibble(
   scenario = c("avant", "apres"),
-  frais = c(sco, sco*1.1)
+  frais = c(sco, sco * 1.1)
 ) %>%
   tidyr::expand_grid(
     parent = 2,#factor(1:2, labels = c("monoparentale", "biparentale")),
     enfants = 1:4,
     salaire = s,
     ippa = 100,
-    cps = cps
+    t_cps = t_cps
   ) %>%
   dplyr::mutate(
     scolarite = frais * enfants,
     part = part(parent, enfants),
-    quotient = quotient_final(salaire, scolarite, part, ippa, tx, cps),
+    quotient = quotient_final(salaire, scolarite, part, ippa, tx, t_cps),
     q_edu_salaire = (1 - quotient) * scolarite / salaire
   ) %>%
-  ggplot2::ggplot(ggplot2::aes(x=salaire, y=q_edu_salaire)) +
-  ggplot2::geom_line(ggplot2::aes(color=scenario)) +
+  ggplot2::ggplot(ggplot2::aes(x = salaire, y = q_edu_salaire)) +
+  ggplot2::geom_line(ggplot2::aes(color = scenario)) +
   ggplot2::facet_grid(~enfants)
 
 ```

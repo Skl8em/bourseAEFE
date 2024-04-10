@@ -15,7 +15,7 @@ indicatif,
 You can install the development version of bourseAEFE like so:
 
 ``` r
-devtools::install_github("Skl8em/bourseAEFE")
+devtools::install_github("https://github.com/Skl8em/bourseAEFE")
 ```
 
 ## Example
