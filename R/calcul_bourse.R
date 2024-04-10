@@ -45,6 +45,7 @@ quotient_theorique <- function(salaire, scolarite, part, ippa, tx) {
 #'
 #' @return le quotient final après soustraction de la cps
 #'
+#' @export
 cps <- function(q, t) {
   bound(q - t * bound(quotient(q, 0.8, 1)))
 }
