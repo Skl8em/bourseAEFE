@@ -40,6 +40,6 @@ scolarite <- 1000
 IPPA <- 0.8
 tx <- 1
 
-(q <- quotient_final(salaire, scolarite, 3, IPPA, tx, 0.07))
+(q <- quotite_post_cps(salaire, scolarite, 3, IPPA, tx, 0.07))
 
 ```

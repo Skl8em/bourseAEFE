@@ -1,6 +1,7 @@
 ---
 title: "bourseAEFE"
 output: rmarkdown::html_vignette
+Encoding: UTF-8
 vignette: >
   %\VignetteIndexEntry{bourseAEFE}
   %\VignetteEngine{knitr::rmarkdown}
@@ -41,13 +42,13 @@ sco <- 5000 # frais annuel de scolarité
 
 les taux finaux se calcul simplement suivant cette formule:
 ```{r}
-quotient_final(36000, sco, p, ippa, tx, t_cps)
+quotite_post_cps(36000, sco, p, ippa, tx, t_cps)
 ```
 
 Voir a quelle hausse de salaires une baisse du quotient theorique correspondrait se calcule de cette sorte:
 ```{r}
 salaire <- 36000
-(qt <- quotient_theorique(salaire, sco, p, ippa, tx))
+(qt <- quotite_theorique(salaire, sco, p, ippa, tx))
 
 (revenu_net_imp(cps(0.4, t_cps), sco, p, ippa, tx, t_cps) - salaire)
 
@@ -81,8 +82,8 @@ tidyr::expand_grid(
   dplyr::mutate(
     scolarite =  sco * enfants,
     part = part(parent, enfants),
-    quotient = quotient_final(salaire, scolarite, part, ippa, tx, t_cps),
-    q_edu_salaire = (1 - quotient) * scolarite / salaire
+    quotite = quotite_post_cps(salaire, scolarite, part, ippa, tx, t_cps),
+    q_edu_salaire = (1 - quotite) * scolarite / salaire
   ) %>%
   ggplot2::ggplot(ggplot2::aes(x = salaire, y = q_edu_salaire)) +
   ggplot2::geom_line(ggplot2::aes(color = scenario)) +
@@ -108,8 +109,8 @@ tibble::tibble(
   dplyr::mutate(
     scolarite = frais * enfants,
     part = part(parent, enfants),
-    quotient = quotient_final(salaire, scolarite, part, ippa, tx, t_cps),
-    q_edu_salaire = (1 - quotient) * scolarite / salaire
+    quotite = quotite_post_cps(salaire, scolarite, part, ippa, tx, t_cps),
+    q_edu_salaire = (1 - quotite) * scolarite / salaire
   ) %>%
   ggplot2::ggplot(ggplot2::aes(x = salaire, y = q_edu_salaire)) +
   ggplot2::geom_line(ggplot2::aes(color = scenario)) +

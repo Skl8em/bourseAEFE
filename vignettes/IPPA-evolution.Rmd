@@ -3,6 +3,10 @@ title: "Analyse de l'Évolution d'un IPPA"
 author: "Benjamin Nakajima-Claverie"
 date: "Avril 2024"
 output: rmarkdown::html_vignette
+Encoding: UTF-8
+Depends: R (>= 4.3.3)
+Imports: dplyr, ggplot2, tibble, tidyr
+Suggests: devtools
 vignette: >
   %\VignetteIndexEntry{Analyse de l'Évolution d'un IPPA}
   %\VignetteEngine{knitr::rmarkdown}

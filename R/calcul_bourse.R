@@ -14,54 +14,48 @@
 #' @export
 #'
 #' @examples
-#' quotient_final(7000000, 1100000, 2.5, 73, 0.0063, 0.05)
+#' quotite_post_cps(7000000, 1100000, 2.5, 73, 0.0063, 0.05)
 #'
-quotient_final <- function(salaire, scolarite, part, ippa, tx, t_cps) {
-  cps(quotient_theorique(salaire, scolarite, part, ippa, tx), t_cps)
+quotite_post_cps <- function(salaire, scolarite, part, ippa, tx, t_cps) {
+  cps(quotite_theorique(salaire, scolarite, part, ippa, tx), t_cps)
 }
 
-#' Calcul du quotient théorique, le pourcentage de bourse correspondant au besoin du requerreur avant ajustement budgétaire
+#' Calcul du quotient théorique, le pourcentage de bourse correspondant au besoin de la famille avant ajustement budgétaire
 #'
-#' @param salaire salaire net en denomination locale (ex. 3 000 000 de Yen)
-#' @param scolarite frais de scolarité strict en denomination locale (ex. 1 000 000 de Yen)
-#' @param part part de la famille: 0.5 par enfants, 2 pour deux parents, 1.5 pour 1 parents seul (ex. 3 pour 2 parents et 2 enfants)
-#' @param ippa taux IPPA (index de parité de pouvoir d'achat) fixé par l'AEFE pour l'école(ex. 78)
-#' @param tx taux d'echange de la denomination locale en EUR, par Ex
+#' @rdname quotite_post_cps
 #'
-#' @return le quotient qui détermine la hauteur de bourse correspondant au besoin reconnu par l'administration
+#' @return la quotité qui détermine la hauteur de bourse correspondant au besoin reconnu par l'administration
 #' @export
 #'
 #' @examples
-#'  quotient_theorique(7000000, 1100000, 2.5, 73, 0.0063)
-
-quotient_theorique <- function(salaire, scolarite, part, ippa, tx) {
+#'  quotite_theorique(7000000, 1100000, 2.5, 73, 0.0063)
+quotite_theorique <- function(salaire, scolarite, part, ippa, tx) {
   quotite(quotient_pondere(salaire, scolarite, part, ippa, tx))
 }
 
-#' calcul du quotient final après application de la cps
+
+#' Quotient ponderé
 #'
-#' @param q quotient théorique en nombre entier (0.9 pour 90%)
-#' @param t taux de cps en nombre entier (0.01 pour 1%)
+#' @rdname quotite_post_cps
 #'
-#' @return le quotient final après soustraction de la cps
-#'
+#' @return un nombre, le quotient familial apres pondération en EUR
 #' @export
-cps <- function(q, t) {
-  bound(q - t * bound(quotient(q, 0.8, 1)))
+#'
+#' @examples
+#' quotient_pondere(7000000, 1100000, 2.5, 73, 0.0063)
+quotient_pondere <- function(salaire, scolarite, part, ippa, tx) {
+  ponderation(quotient_f(salaire, scolarite, part), ippa, tx)
 }
 
-quotite <- function(q){
-  quotient(q, 3000, 23000)
-}
-
-ponderation <- function(r, i, tx){
-  r * (100/i) * tx
-}
-
+#' quotient familial
+#'
+#' @rdname quotite_post_cps
+#'
+#' @return quotient familial en denomination locale
+#' @export
+#'
+#' @examples
+#' quotient_f(7000000, 1100000, 2.5)
 quotient_f <- function(salaire, scolarite, part) {
   pmax(0, (salaire - scolarite) / part)
-}
-
-quotient_pondere <- function(salaire, scolarite, part, i, tx) {
-  ponderation(quotient_f(salaire, scolarite, part), i, tx)
 }
