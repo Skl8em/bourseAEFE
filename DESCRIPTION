@@ -3,7 +3,7 @@ Title: fonction facilitant le débat autour des bourses de l'AEFE
 Version: 0.0.0.9000
 Authors@R: 
     person("Benjamin", "Nakajima-Claverie", , "152368+Skl8em@users.noreply.github.com", role = c("aut", "cre"),
-           comment = c(ORCID = "YOUR-ORCID-ID"))
+           comment = c(ORCID = "0009-0007-6342-8038"))
 Description: Propose des fonctions qui facilite la verification et le débat autour du calcul des bourse de l'AEFE. Ces fonctions n'existent qu'à titre indicatif! 
 License: GPL (>= 3)
 Encoding: UTF-8

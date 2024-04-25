@@ -1,7 +1,7 @@
 
 
 
-#' Calcul du quotient final des bourse AEFE en consideration de
+#' Calcul de la quotite final des bourses AEFE en consideration des parametres suivants:
 #'
 #' @param salaire salaire net en denomination locale (ex. 3 000 000 de Yen)
 #' @param scolarite frais de scolarité strict en denomination locale (ex. 1 000 000 de Yen)
