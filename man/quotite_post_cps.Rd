@@ -5,7 +5,7 @@
 \alias{quotite_theorique}
 \alias{quotient_pondere}
 \alias{quotient_f}
-\title{Calcul du quotient final des bourse AEFE en consideration de}
+\title{Calcul de la quotite final des bourses AEFE en consideration des parametres suivants:}
 \usage{
 quotite_post_cps(salaire, scolarite, part, ippa, tx, t_cps)
 
@@ -38,7 +38,7 @@ un nombre, le quotient familial apres pondération en EUR
 quotient familial en denomination locale
 }
 \description{
-Calcul du quotient final des bourse AEFE en consideration de
+Calcul de la quotite final des bourses AEFE en consideration des parametres suivants:
 
 Calcul du quotient théorique, le pourcentage de bourse correspondant au besoin de la famille avant ajustement budgétaire
 

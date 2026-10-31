@@ -2,9 +2,9 @@
 % Please edit documentation in R/quotient.R
 \name{quotient}
 \alias{quotient}
-\title{calcule le quotient d'un point x entre deux bornes a et b,
-c'est a dire x est a q\% de b partant de a
-en formulex = a + quotient * (b -a)}
+\title{calcule le quotient d'un point x entre deux bornes a et b, mesuré depuis b,
+borné entre 0 et 1 : 1 pour x <= a, 0 pour x >= b
+en formule x = b - quotient * (b - a)}
 \usage{
 quotient(x, a, b)
 }
@@ -19,7 +19,7 @@ quotient(x, a, b)
 a number
 }
 \description{
-calcule le quotient d'un point x entre deux bornes a et b,
-c'est a dire x est a q\% de b partant de a
-en formulex = a + quotient * (b -a)
+calcule le quotient d'un point x entre deux bornes a et b, mesuré depuis b,
+borné entre 0 et 1 : 1 pour x <= a, 0 pour x >= b
+en formule x = b - quotient * (b - a)
 }

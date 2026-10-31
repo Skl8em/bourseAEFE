@@ -1,6 +1,6 @@
 Package: bourseAEFE
 Title: fonction facilitant le débat autour des bourses de l'AEFE
-Version: 0.0.0.9000
+Version: 0.1.0
 Authors@R: 
     person("Benjamin", "Nakajima-Claverie", , "152368+Skl8em@users.noreply.github.com", role = c("aut", "cre"),
            comment = c(ORCID = "0009-0007-6342-8038"))
@@ -8,7 +8,6 @@ Description: Propose des fonctions qui facilite la verification et le débat aut
 License: GPL (>= 3)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.1
 Imports: 
     dplyr
 Suggests: 
@@ -22,3 +21,4 @@ Config/testthat/edition: 3
 VignetteBuilder: knitr
 URL: https://github.com/Skl8em/bourseAEFE
 BugReports: https://github.com/Skl8em/bourseAEFE/issues
+Config/roxygen2/version: 8.0.0
